@@ -1,7 +1,5 @@
 # nz-toggle
 
-[![Join the chat at https://gitter.im/tannerlinsley/nz-toggle](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/tannerlinsley/nz-toggle?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 __Double and Triple-State Toggle for Angular__
 
 ## Features
@@ -9,14 +7,12 @@ __Double and Triple-State Toggle for Angular__
 - Indeterminate checkboxes are great for nested checklists, but emit a `false` value in that state. nz-toggle's `tri-toggle` mode fixes this by truthfully providing 3 separate value states.
 - Tooltips for the tri-toggle impaired.
 
-[Demo](http://codepen.io/anon/pen/yNjyME)
-
 ## Get Started
 
 Install via NPM or Bower
 
-`npm install --save nz-toggle`
-`bower install --save nz-toggle`
+`npm install --save KaiSoellch\nz-toggle`
+`bower install --save KaiSoellch\nz-toggle`
 
 Include Files
 
@@ -49,13 +45,9 @@ Include Files
 
 ```
 
-Visit the [demo](http://codepen.io/anon/pen/yNjyME) for more usage information
-
 ## License
 
 The MIT License (MIT)
-
-Copyright (c) 2014 Tanner Linsley
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
