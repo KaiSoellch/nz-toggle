@@ -19,7 +19,6 @@
   position: relative;
   cursor: pointer;
 }
-/* Handle */
 .nz-toggle-handle {
   -webkit-border-radius: 20px;
   border-radius: 20px;
@@ -27,14 +26,14 @@
   position: absolute;
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
-  -webkit-box-shadow: 0 2px 10px 0 rgba(0,0,0,0.25);
-  box-shadow: 0 2px 10px 0 rgba(0,0,0,0.25);
+  -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.25);
 }
 .nz-toggle-tooltip {
   display: block;
   position: absolute;
-  background: rgba(0,0,0,0.8);
-  color: rgba(255,255,255,0.6);
+  background: rgba(0, 0, 0, 0.8);
+  color: rgba(255, 255, 255, 0.6);
   font-size: 80%;
   padding: 5px;
   -webkit-border-radius: 10px;
@@ -47,13 +46,6 @@
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-.nz-toggle-tooltip:before {
-  position: absolute;
-  content: '';
-  width: 0;
-  height: 0;
-  pointer-events: none;
-}
 .nz-toggle-tooltip span {
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
@@ -61,13 +53,35 @@
 .nz-toggle-tooltip span.active {
   color: #fff;
 }
+.nz-toggle-tooltip:before {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
 .nz-toggle-wrap.horizontal .nz-toggle-handle {
   height: 100%;
   width: 50%;
   top: 0;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
-/* States */
+}
+.nz-toggle-wrap.horizontal .nz-toggle-tooltip {
+  bottom: 100%;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0px) scale(0.85);
+  transform: translate(-50%, 0px) scale(0.85);
+}
+.nz-toggle-wrap.horizontal .nz-toggle-tooltip:before {
+  left: 50%;
+  top: 100%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid rgba(0, 0, 0, 0.8);
+  border-bottom: 5px solid transparent;
 }
 .nz-toggle-wrap.horizontal.false .nz-toggle-handle {
   left: 0;
@@ -84,22 +98,6 @@
   -webkit-transform: translateX(-100%);
   transform: translateX(-100%);
 }
-.nz-toggle-wrap.horizontal .nz-toggle-tooltip {
-  bottom: 100%;
-  left: 50%;
-  -webkit-transform: translate(-50%, 0px) scale(0.85);
-  transform: translate(-50%, 0px) scale(0.85);
-}
-.nz-toggle-wrap.horizontal .nz-toggle-tooltip:before {
-  left: 50%;
-  top: 100%;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid rgba(0,0,0,0.8);
-  border-bottom: 5px solid transparent;
-}
 .nz-toggle-wrap.tip-bottom .nz-toggle-tooltip {
   bottom: initial;
   top: 100%;
@@ -115,7 +113,7 @@
   transform: translateX(-50%);
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-bottom: 5px solid rgba(0,0,0,0.8);
+  border-bottom: 5px solid rgba(0, 0, 0, 0.8);
   border-top: 5px solid transparent;
 }
 .nz-toggle-wrap.vertical .nz-toggle-handle {
@@ -125,21 +123,6 @@
   top: 50%;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
-}
-.nz-toggle-wrap.vertical.false .nz-toggle-handle {
-  top: 100%;
-  -webkit-transform: translateY(-100%);
-  transform: translateY(-100%);
-}
-.nz-toggle-wrap.vertical.null .nz-toggle-handle {
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-.nz-toggle-wrap.vertical.true .nz-toggle-handle {
-  top: 0%;
-  -webkit-transform: translateY(0%);
-  transform: translateY(0%);
 }
 .nz-toggle-wrap.vertical .nz-toggle-tooltip {
   left: 100%;
@@ -155,7 +138,22 @@
   transform: translateY(-50%);
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
-  border-right: 5px solid rgba(0,0,0,0.8);
+  border-right: 5px solid rgba(0, 0, 0, 0.8);
+}
+.nz-toggle-wrap.vertical.false .nz-toggle-handle {
+  top: 100%;
+  -webkit-transform: translateY(-100%);
+  transform: translateY(-100%);
+}
+.nz-toggle-wrap.vertical.null .nz-toggle-handle {
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.nz-toggle-wrap.vertical.true .nz-toggle-handle {
+  top: 0;
+  -webkit-transform: translateY(0%);
+  transform: translateY(0%);
 }
 .nz-toggle-wrap.tip-left .nz-toggle-tooltip {
   left: initial;
@@ -173,7 +171,7 @@
   transform: translateY(-50%);
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
-  border-left: 5px solid rgba(0,0,0,0.8);
+  border-left: 5px solid rgba(0, 0, 0, 0.8);
   border-right: 5px solid transparent;
 }
 .nz-toggle-wrap.square {

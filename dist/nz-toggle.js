@@ -1,14 +1,15 @@
 (function() {
     var module = angular.module('nzToggle', []);
 
-    module.directive('nzToggle', ["$timeout", function($timeout) {
+    module.directive('nzToggle', ['$timeout', function($timeout) {
         return {
             restrict: 'E',
             replace: true,
             scope: {
                 config: '=?',
                 ngModel: '=',
-                onToggle: '&'
+                onToggle: '&',
+                ngDisabled: '='
             },
             template: [
                 '<div class="nz-toggle-wrap" ng-class="getStyle()" ng-style="wrapStyle">',
@@ -28,7 +29,7 @@
                 '           <span ng-show="tipTrue"></span>{{tipTrue}}',
                 '       </span>',
                 '   </div>',
-                '</div>',
+                '</div>'
             ].join(''),
             link: function(scope, el, attrs) {
 
@@ -56,8 +57,7 @@
 
 
                 // Helpers
-                var has = angular.isDefined,
-                    copy = angular.copy;
+                var has = angular.isDefined;
 
                 // Defaults
                 var defaults = {
@@ -71,7 +71,7 @@
                     colorTrue: '#60BD68',
                     colorFalse: '#F15854',
                     colorNull: '#DDD',
-                    tooltip: false,
+                    tooltip: false
                 };
 
                 // VM shorthand
@@ -84,9 +84,6 @@
                 });
 
                 init();
-
-
-
 
                 function init() {
 
@@ -128,6 +125,7 @@
                         removeEventListeners(window, 'mousemove touchmove', onToggleMove);
                         removeEventListeners(window, 'mouseup touchend', onToggleRelease);
                         removeEventListeners(el[0], 'click', onClick);
+
                     });
                 }
 
@@ -138,12 +136,13 @@
                 }
 
                 function onToggleTouch(e) {
+                    if (vm.ngDisabled) return;
 
                     e = e ? e : window.event;
 
                     pressed = {
-                        x: e.x,
-                        y: e.y
+                        x: e.pageX || e.touches[0].pageX,
+                        y: e.pageY || e.touches[0].pageY
                     };
 
                     movement = 0;
@@ -153,11 +152,8 @@
                     addEventListeners(window, 'mousemove touchmove', onToggleMove);
                     addEventListeners(window, 'mouseup touchend', onToggleRelease);
 
-                    e.stopImmediatePropagation();
                     e.stopPropagation();
-                    if (e.cancelBubble) {
-                        e.cancelBubble();
-                    }
+                    e.returnValue = false;
                     return false;
                 }
 
@@ -165,8 +161,8 @@
 
                     e = e ? e : window.event;
 
-                    var v = e.y - pressed.y,
-                        h = e.x - pressed.x,
+                    var v = (e.pageY || e.touches[0].pageY) - pressed.y,
+                        h = (e.pageX || e.touches[0].pageX) - pressed.x,
 
                         cHeight = el[0].offsetHeight,
                         cWidth = el[0].offsetWidth,
@@ -188,27 +184,25 @@
                         elToggle.css('left', now + '%');
                     }
 
-                    console.log(cHeight, now);
-
                     movement = Math.max(movement, Math.max(Math.abs(v), Math.abs(h)));
 
-                    e.stopImmediatePropagation();
                     e.stopPropagation();
-                    if (e.cancelBubble) {
-                        e.cancelBubble();
-                    }
+                    e.returnValue = false;
                     return false;
 
                 }
 
                 function onToggleRelease(e) {
-
                     e = e ? e : window.event;
 
                     pressed = false;
 
                     vm.$apply(function() {
-                        if (movement < 2) {
+                        if (movement < 1 && e.type == 'mouseup') {
+                            return;
+                        }
+                        if (movement < 1 && e.type == 'touchend') {
+                            toggle();
                             return;
                         }
                         if (vm.triToggle) {
@@ -248,7 +242,6 @@
                             return;
                         }
                         toggle('true');
-                        return;
                     });
 
                     elToggle.css({
@@ -260,11 +253,8 @@
                     removeEventListeners(window, 'mousemove touchmove', onToggleMove);
                     removeEventListeners(window, 'mouseup touchend', onToggleRelease);
 
-                    e.stopImmediatePropagation();
                     e.stopPropagation();
-                    if (e.cancelBubble) {
-                        e.cancelBubble();
-                    }
+                    e.returnValue = false;
                     return false;
                 }
 
@@ -294,7 +284,7 @@
                         /* ToolTips */
                         'tipTrue',
                         'tipFalse',
-                        'tipNull',
+                        'tipNull'
                     ], function(prop) {
                         if (has(attrs[prop])) {
                             vm[prop] = vm.$eval(attrs[prop]);
@@ -328,7 +318,7 @@
                     // Base Styles
                     vm.wrapStyle = {
                         width: vm.width + 'px',
-                        height: vm.height + 'px',
+                        height: vm.height + 'px'
                     };
 
                     // Auto Border Radius 
@@ -384,14 +374,14 @@
                 }
 
                 function toggle(state) {
+                    if (vm.ngDisabled) return;
+
                     $timeout(function() {
                         if (!state) {
                             if (vm.state == 'false') {
                                 vm.ngModel = vm.triToggle ? vm.valNull : vm.valTrue;
-                                return;
                             } else if (vm.state == 'null') {
                                 vm.ngModel = vm.valTrue;
-                                return;
                             } else {
                                 vm.ngModel = vm.valFalse;
                             }
@@ -399,10 +389,8 @@
                             vm.state = state;
                             if (state === 'false') {
                                 vm.ngModel = vm.valFalse;
-                                return;
                             } else if (state === 'null') {
                                 vm.ngModel = vm.valNull;
-                                return;
                             } else {
                                 vm.ngModel = vm.valTrue;
                             }
@@ -423,7 +411,7 @@
                         el.removeEventListener(evts[i], fn, false);
                     }
                 }
-            },
+            }
         };
     }]);
 })();
