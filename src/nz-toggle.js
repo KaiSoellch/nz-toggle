@@ -9,7 +9,7 @@
                 config: '=?',
                 ngModel: '=',
                 onToggle: '&',
-                ngDisabled: '=',
+                ngDisabled: '='
             },
             template: [
                 '<div class="nz-toggle-wrap" ng-class="getStyle()" ng-style="wrapStyle">',
@@ -29,7 +29,7 @@
                 '           <span ng-show="tipTrue"></span>{{tipTrue}}',
                 '       </span>',
                 '   </div>',
-                '</div>',
+                '</div>'
             ].join(''),
             link: function(scope, el, attrs) {
 
@@ -57,8 +57,7 @@
 
 
                 // Helpers
-                var has = angular.isDefined,
-                    copy = angular.copy;
+                var has = angular.isDefined;
 
                 // Defaults
                 var defaults = {
@@ -72,7 +71,7 @@
                     colorTrue: '#60BD68',
                     colorFalse: '#F15854',
                     colorNull: '#DDD',
-                    tooltip: false,
+                    tooltip: false
                 };
 
                 // VM shorthand
@@ -85,9 +84,6 @@
                 });
 
                 init();
-
-
-
 
                 function init() {
 
@@ -197,7 +193,6 @@
                 }
 
                 function onToggleRelease(e) {
-
                     e = e ? e : window.event;
 
                     pressed = false;
@@ -247,7 +242,6 @@
                             return;
                         }
                         toggle('true');
-                        return;
                     });
 
                     elToggle.css({
@@ -290,7 +284,7 @@
                         /* ToolTips */
                         'tipTrue',
                         'tipFalse',
-                        'tipNull',
+                        'tipNull'
                     ], function(prop) {
                         if (has(attrs[prop])) {
                             vm[prop] = vm.$eval(attrs[prop]);
@@ -324,7 +318,7 @@
                     // Base Styles
                     vm.wrapStyle = {
                         width: vm.width + 'px',
-                        height: vm.height + 'px',
+                        height: vm.height + 'px'
                     };
 
                     // Auto Border Radius 
@@ -386,10 +380,8 @@
                         if (!state) {
                             if (vm.state == 'false') {
                                 vm.ngModel = vm.triToggle ? vm.valNull : vm.valTrue;
-                                return;
                             } else if (vm.state == 'null') {
                                 vm.ngModel = vm.valTrue;
-                                return;
                             } else {
                                 vm.ngModel = vm.valFalse;
                             }
@@ -397,10 +389,8 @@
                             vm.state = state;
                             if (state === 'false') {
                                 vm.ngModel = vm.valFalse;
-                                return;
                             } else if (state === 'null') {
                                 vm.ngModel = vm.valNull;
-                                return;
                             } else {
                                 vm.ngModel = vm.valTrue;
                             }
@@ -421,7 +411,7 @@
                         el.removeEventListener(evts[i], fn, false);
                     }
                 }
-            },
+            }
         };
     }]);
 })();
